@@ -1,0 +1,494 @@
+
+
+<!DOCTYPE html><!DOCTYPE html>
+<title>Speech to Solution(STS) - AC Adapter Demo</title>
+
+<style>
+:root{
+    --brand-strong:#0f4c81;
+    --brand:#1f6fb2;
+    --surface:#ffffff;
+    --surface-soft:#f8fbff;
+    --text:#1f2937;
+    --text-soft:#5b6573;
+    --border:#d9e2ec;
+    --shadow:0 6px 20px rgba(8, 47, 73, 0.08);
+    --url-base:#163b63;
+    --url-token:#0f9d58;
+    --panel-font-size:13px;
+    --radius:16px;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html, body{
+    margin:0;
+    padding:0;
+    height:100%;
+    overflow:hidden;
+    font-family:"Segoe UI", Arial, sans-serif;
+    background:#f4f6f9;
+    color:var(--text);
+}
+
+/* HERO */
+.hero{
+    background:linear-gradient(90deg,var(--brand-strong),var(--brand));
+    color:white;
+    padding:10px 20px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.10);
+}
+
+.hero h1{
+    margin:0;
+    font-size:22px;
+    font-weight:700;
+    letter-spacing:0.2px;
+}
+
+.hero p{
+    margin:5px 0 0 0;
+    font-size:15px;
+    line-height:1.45;
+    opacity:0.97;
+}
+
+/* SUB HEADER */
+.header{
+    background:white;
+    padding:8px 16px;
+    border-bottom:1px solid var(--border);
+    font-weight:600;
+    color:var(--brand-strong);
+    font-size:13px;
+    box-shadow:0 1px 4px rgba(0,0,0,0.04);
+}
+
+/* MAIN LAYOUT */
+.container{
+    display:flex;
+    height:calc(100vh - 86px);
+}
+
+/* LEFT PANEL */
+.left{
+    width:255px;
+    background:var(--surface-soft);
+    padding:10px;
+    border-right:1px solid var(--border);
+    overflow:hidden;
+}
+
+.left h3{
+    margin:4px 0 10px 2px;
+    font-size:16px;
+    font-weight:700;
+    color:#111827;
+}
+
+.token{
+    display:block;
+    margin-bottom:7px;
+    padding:10px 11px;
+    border:1px solid var(--border);
+    border-radius:14px;
+    background:white;
+    box-shadow:0 1px 5px rgba(15,76,129,0.05);
+    transition:all 0.18s ease;
+    cursor:pointer;
+}
+
+.token:hover{
+    border-color:#b8d8fa;
+    box-shadow:0 4px 10px rgba(15,76,129,0.08);
+}
+
+.token b{
+    font-size:12px;
+}
+
+.token small{
+    display:block;
+    margin-top:3px;
+    font-size:10px;
+    color:var(--text-soft);
+    line-height:1.3;
+}
+
+.token input[type="checkbox"]{
+    transform:scale(0.92);
+    margin-right:8px;
+    accent-color:#0078d4;
+}
+
+/* RIGHT PANEL */
+.right{
+    flex:1;
+    display:grid;
+    grid-template-rows: 122px 1fr 84px;
+    gap:8px;
+    padding:8px;
+    min-height:0;
+}
+
+/* SHARED CARD */
+.card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    overflow:hidden;
+}
+
+/* URL CARD */
+.url-card-head{
+    padding:8px 12px;
+    background:linear-gradient(90deg,#eaf4ff,#f7fbff);
+    border-bottom:1px solid #cfe0f3;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+.url-title-wrap{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.url-card-head h4{
+    margin:0;
+    font-size:15px;
+    font-weight:700;
+    color:var(--brand-strong);
+}
+
+.url-badge{
+    font-size:12px;
+    font-weight:700;
+    color:var(--brand-strong);
+    background:#d7ebff;
+    border:1px solid #bddcff;
+    padding:6px 12px;
+    border-radius:999px;
+    white-space:nowrap;
+}
+
+.copy-btn{
+    border:none;
+    background:#0f6cbd;
+    color:white;
+    font-size:12px;
+    font-weight:700;
+    padding:8px 12px;
+    border-radius:10px;
+    cursor:pointer;
+    box-shadow:0 2px 6px rgba(15,108,189,0.2);
+}
+
+.copy-btn:hover{
+    background:#0b5ea4;
+}
+
+.url-card-body{
+    padding:10px 12px;
+}
+
+.url-box{
+    background:linear-gradient(180deg,#f8fbff,#f3f9ff);
+    border:1px solid #d6e7fb;
+    border-radius:14px;
+    padding:12px 14px;
+    font-size:var(--panel-font-size);
+    line-height:1.45;
+    font-family:Consolas, "Courier New", monospace;
+    word-break:break-word;
+    overflow-wrap:anywhere;
+    min-height:60px;
+    overflow:hidden;
+}
+
+.url-base{
+    color:var(--url-base);
+}
+
+.url-suffix{
+    color:var(--url-token);
+    font-weight:700;
+}
+
+/* IMAGE CARD */
+.image-card{
+    padding:6px;
+    min-height:0;
+    background:linear-gradient(180deg,#ffffff,#fbfdff);
+}
+
+.image-frame{
+    width:100%;
+    height:100%;
+    border-radius:14px;
+    background:#dce6f0;
+    overflow:hidden;
+    position:relative;
+    border:1px solid #dbe6ef;
+}
+
+.image-frame img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    object-position:center center;
+    display:block;
+    background:#dce6f0;
+}
+
+/* CLICKABLE FIELD MATCHING THE RED RECTANGLE */
+.guided-link-btn{
+    position:absolute;
+    z-index:30;
+    border:none;
+    background:transparent;
+    cursor:pointer;
+    padding:0;
+    margin:0;
+
+    /* aligned to the red rectangle in your reference screenshot */
+    left:35.3%;
+    top:59.3%;
+    width:30.8%;
+    height:7.1%;
+}
+
+.guided-link-btn:focus-visible{
+    outline:2px solid #0f6cbd;
+    outline-offset:2px;
+}
+
+/* CASE LOG */
+.summary-card{
+    padding:10px 14px;
+    overflow:hidden;
+    background:linear-gradient(180deg,#ffffff,#fcfdff);
+}
+
+.summary-card h4{
+    margin:0 0 6px 0;
+    font-size:15px;
+    font-weight:700;
+    color:#111827;
+}
+
+#summary{
+    margin:0;
+    font-size:13px;
+    line-height:1.4;
+    color:#374151;
+}
+
+.inline-note{
+    display:inline-block;
+    margin-left:8px;
+    padding:3px 8px;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:700;
+    background:#eef6ff;
+    color:#0f6cbd;
+    border:1px solid #cfe5ff;
+}
+</style>
+</head>
+
+<body>
+
+<div class="hero">
+    <h1>Speech to Solution(STS) - AC Adapter Demo</h1>
+    <p>Real-time token-driven troubleshooting experience for DTC with dynamic Boomi URL generation and case log summarization.</p>
+</div>
+
+<div class="header">
+    Dell Technologies – Digital Tech Console (Demo)
+</div>
+
+<div class="container">
+
+    <!-- LEFT PANEL -->
+    <div class="left">
+        <h3>Extracted Tokens</h3>
+
+        <label class="token">
+            <input type="checkbox" value="AType_USB">
+            <b>AType_USB</b>
+            <small>Adapter Type is USB</small>
+        </label>
+
+        <label class="token">
+            <input type="checkbox" value="Adapter_not_charging">
+            <b>Adapter_not_charging</b>
+            <small>Symptom is "adapter not charging"</small>
+        </label>
+
+        <label class="token">
+            <input type="checkbox" value="D0">
+            <b>D0</b>
+            <small>Damage check done, no damages found</small>
+        </label>
+
+        <label class="token">
+            <input type="checkbox" value="D1">
+            <b>D1</b>
+            <small>Damage check done, yes damages found</small>
+        </label>
+
+        <label class="token">
+            <input type="checkbox" value="Wattage_65">
+            <b>Wattage_65</b>
+            <small>Adapter is 65W</small>
+        </label>
+
+        <label class="token">
+            <input type="checkbox" value="KG0">
+            <b>KG0</b>
+            <small>Known Good check done, known good adapter doesnt work</small>
+        </label>
+
+        <label class="token">
+            <input type="checkbox" value="KG1">
+            <b>KG1</b>
+            <small>Known Good check done, known good adapter works fine</small>
+        </label>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right">
+
+        <!-- URL CARD -->
+        <div class="card">
+            <div class="url-card-head">
+                <div class="url-title-wrap">
+                    <h4>Boomi URL</h4>
+                    <div class="url-badge">Dynamic Tokenized Launch</div>
+                </div>
+                <button class="copy-btn" onclick="copyUrl()">Copy URL</button>
+            </div>
+            <div class="url-card-body">
+                <div class="url-box">
+                    <span class="url-base" id="urlBasePart"></span><span class="url-suffix" id="urlSuffixPart"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- DTC IMAGE -->
+        <div class="card image-card">
+            <div class="image-frame">
+                <img src="image.png" alt="DTC Screenshot">
+                <button
+                    class="guided-link-btn"
+                    onclick="openInNewTab()"
+                    aria-label="Follow Guided Solution: AC Adapter Troubleshooting">
+                </button>
+            </div>
+        </div>
+
+        <!-- CASE LOG SUMMARY -->
+        <div class="card summary-card">
+            <h4>Case Log Summary <span class="inline-note">Auto-generated</span></h4>
+            <p id="summary"></p>
+        </div>
+
+    </div>
+</div>
+
+<script>
+const baseURL = "https://us.flow-prod.boomi.com/e51d5d20-27c1-4df5-abe0-0750f0c3f7b1/play/DellPlayerEn/?flow-id=a1520eaf-d481-4344-b9c4-f57d76da83a6";
+
+function getTokens() {
+    return Array.from(document.querySelectorAll('.left input[type="checkbox"]:checked'))
+        .map(cb => cb.value);
+}
+
+function enforceMutualExclusion(changed){
+    const d0 = document.querySelector('.left input[value="D0"]');
+    const d1 = document.querySelector('.left input[value="D1"]');
+    const kg0 = document.querySelector('.left input[value="KG0"]');
+    const kg1 = document.querySelector('.left input[value="KG1"]');
+
+    if (changed.value === "D0" && changed.checked && d1) d1.checked = false;
+    if (changed.value === "D1" && changed.checked && d0) d0.checked = false;
+
+    if (changed.value === "KG0" && changed.checked && kg1) kg1.checked = false;
+    if (changed.value === "KG1" && changed.checked && kg0) kg0.checked = false;
+}
+
+function render() {
+    const tokens = getTokens();
+    const suffix = tokens.length ? "&symptom=" + tokens.join("_") : "";
+
+    document.getElementById("urlBasePart").textContent = baseURL;
+    document.getElementById("urlSuffixPart").textContent = suffix;
+
+    let summary = "";
+
+    if (tokens.includes("Adapter_not_charging")) summary += "Customer reports adapter not charging. ";
+    if (tokens.includes("D0")) summary += "Damage check completed with no damages found. ";
+    if (tokens.includes("D1")) summary += "Damage check done, yes damages found. ";
+    if (tokens.includes("AType_USB")) summary += "Adapter type identified as USB. ";
+    if (tokens.includes("Wattage_65")) summary += "Adapter wattage is 65W. ";
+    if (tokens.includes("KG1")) summary += "Known good adapter works fine. ";
+    if (tokens.includes("KG0")) summary += "Known good adapter still does not work. ";
+
+    if (!summary) {
+        summary = "No tokens selected. Select one or more STS tokens to generate a tokenized Boomi URL and case log summary.";
+    }
+
+    document.getElementById("summary").textContent = summary;
+}
+
+function openInNewTab() {
+    render();
+    const url =
+        document.getElementById("urlBasePart").textContent +
+        document.getElementById("urlSuffixPart").textContent;
+
+    if (url) {
+        window.open(url, "_blank");
+    }
+}
+
+function copyUrl() {
+    const url =
+        document.getElementById("urlBasePart").textContent +
+        document.getElementById("urlSuffixPart").textContent;
+
+    navigator.clipboard.writeText(url).then(() => {
+        const btn = document.querySelector(".copy-btn");
+        const prev = btn.textContent;
+        btn.textContent = "Copied!";
+        setTimeout(() => btn.textContent = prev, 1400);
+    }).catch(() => {
+        alert("Unable to copy URL in this browser.");
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('.left input[type="checkbox"]').forEach(cb => {
+        cb.addEventListener("change", function(){
+            enforceMutualExclusion(this);
+            render();
+        });
+    });
+
+    render();
+});
+</script>
+
+</body>
+</html>
+
+<html>
+
+
